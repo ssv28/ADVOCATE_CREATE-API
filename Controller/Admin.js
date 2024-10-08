@@ -32,6 +32,7 @@ exports.requestOtp = async function (req, res) {
 
         // Generate OTP and set its expiry
         currentOtp = generateOtp();
+        console.log("===>>",currentOtp)
         otpExpiry = Date.now() + 300 * 1000; // OTP valid for 5 minutes
 
         // Send OTP to the admin's email (mocking this step)
