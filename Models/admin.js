@@ -23,9 +23,11 @@ const adminSchema = new Schema({
     password : {
         type: String,
         required: true,
-    }
+    },
+
+    verificationCode: String,
    
 });
 
-const ADMIN = mongoose.model('ADMIN', adminSchema);  // Create a model from the schema
+const ADMIN = mongoose.model('ADMIN', adminSchema);  
 module.exports = ADMIN;

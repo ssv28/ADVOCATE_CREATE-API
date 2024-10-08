@@ -77,3 +77,37 @@ exports.allAdmin = async function (req, res, next) {
     }
 
 }
+
+// controller/admin.js
+exports.resetPasswordWithCode = async function (req, res) {
+    try {
+        const { email, verificationCode, newPassword, confirmPassword } = req.body;
+
+        // Check if passwords match
+        if (newPassword !== confirmPassword) {
+            return res.status(400).json({
+                status: "Fail",
+                message: "New password and confirm password do not match!"
+            });
+        }
+
+        // Find the admin by email and verification code
+        const admin = await ADMIN.findOne({ email, verificationCode });
+        if (!admin) throw new Error("Invalid verification code or email!");
+
+        // Hash and update the password
+        admin.password = await bcrypt.hash(newPassword, 10);
+        admin.verificationCode = undefined;  // Clear the code after reset
+        await admin.save();
+
+        res.status(200).json({
+            status: "Success",
+            message: "Password has been reset successfully!"
+        });
+    } catch (error) {
+        res.status(404).json({
+            status: "Fail",
+            message: error.message
+        });
+    }
+};
