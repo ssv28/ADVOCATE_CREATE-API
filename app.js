@@ -8,10 +8,10 @@ require('dotenv').config()
 
 const mongoose = require('mongoose')
 
-// mongoose.connect(`${process.env.DB_URL}advocateDB`)
 console.log();
 
-mongoose.connect('mongodb://127.0.0.1:27017/advocateDB')
+mongoose.connect(`${process.env.DB_URL}advocateDB`)
+// mongoose.connect('mongodb://127.0.0.1:27017/advocateDB')
   .then(() => console.log('Connected!'))
   .catch((err) => console.log(err.message));
 
