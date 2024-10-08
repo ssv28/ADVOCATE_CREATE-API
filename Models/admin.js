@@ -19,11 +19,13 @@ const adminSchema = new Schema({
         required: true,
         unique : true,
         lowercase: true,
+        trim: true,
     },
 
     password : {
         type: String,
         required: true,
+        minlength: 8,
     },
 
     verificationCode: String,
