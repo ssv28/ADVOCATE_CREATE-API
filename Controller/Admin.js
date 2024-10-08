@@ -79,6 +79,50 @@ exports.allAdmin = async function (req, res, next) {
 
 }
 
+
+exports.sendVerificationCode = async function (req, res) {
+    try {
+        const admin = await ADMIN.findOne({ email: req.body.email });
+        if (!admin) throw new Error("Admin Not Found!");
+
+        // Generate a 6-digit verification code
+        const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+        
+        // Optionally save the code in the database
+        admin.verificationCode = verificationCode;
+        await admin.save();
+
+        // Set up email
+        const transporter = nodemailer.createTransport({
+            service: 'Gmail',
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.EMAIL_PASSWORD
+            }
+        });
+
+        const mailOptions = {
+            to: admin.email,
+            from: 'no-reply@yourapp.com',
+            subject: 'Password Reset Verification Code',
+            text: `Your password reset verification code is: ${verificationCode}`
+        };
+
+        await transporter.sendMail(mailOptions);
+
+        res.status(200).json({
+            status: "Success",
+            message: "Verification code sent successfully to your email!"
+        });
+    } catch (error) {
+        res.status(404).json({
+            status: "Fail",
+            message: error.message
+        });
+    }
+};
+
+
 exports.resetPasswordWithCode = async function (req, res) {
     try {
         const { email, verificationCode, newPassword, confirmPassword } = req.body;
