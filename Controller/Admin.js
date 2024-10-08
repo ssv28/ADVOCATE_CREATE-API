@@ -26,7 +26,7 @@ exports.adminCreate = async function (req, res, next) {
 exports.adminLogin = async function (req, res, next) {
     try {
 
-        let adminLogin = await ADMIN.findOne({ contactNumber: req.body.contactNumber })
+        let adminLogin = await ADMIN.findOne({ email: req.body.email })
         if (!adminLogin) throw new Error("Admin Record Not Found!")
 
 
