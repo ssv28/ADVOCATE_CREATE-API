@@ -14,7 +14,8 @@ router.delete('/delete/:id', adminController.adminDelete);
 
 // // Verify OTP and reset password
 // router.post('/verifyOtpAndResetPassword', adminController.verifyOtpAndResetPassword);
-// router.post('/resetPasswordWithConfirmation', adminController.resetPasswordWithConfirmation);
+
+router.post('/resetPasswordWithConfirmation', adminController.resetPasswordWithConfirmation);
 
 
 
