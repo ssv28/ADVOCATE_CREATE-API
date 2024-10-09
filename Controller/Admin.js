@@ -3,15 +3,13 @@ const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-let currentOtp = null; // Store the current OTP temporarily
-let otpExpiry = null; // Store the expiry time of the OTP
+let currentOtp = null; 
+let otpExpiry = null; 
 
-// Function to generate a random OTP
 function generateOtp() {
     return Math.floor(100000 + Math.random() * 900000); // Generates a 6-digit OTP
 }
 
-// Send OTP to the user's registered email (mocked here as a console log)
 function sendOtpToEmail(email, otp) {
     console.log(`Sending OTP ${otp} to ${email}`);
 }
@@ -186,40 +184,40 @@ exports.allAdmin = async function (req, res, next) {
 
 
 
-// // Password Reset with New Password and Confirm Password
-// exports.resetPasswordWithConfirmation = async function (req, res) {
-//     try {
-//         const { email, newPassword, confirmPassword } = req.body;
+// Password Reset with New Password and Confirm Password
+exports.resetPasswordWithConfirmation = async function (req, res) {
+    try {
+        const { email, newPassword, confirmPassword } = req.body;
 
-//         // Validate that newPassword and confirmPassword match
-//         if (newPassword !== confirmPassword) {
-//             return res.status(400).json({
-//                 status: "Fail",
-//                 message: "New password and confirm password do not match!"
-//             });
-//         }
+        // Validate that newPassword and confirmPassword match
+        if (newPassword !== confirmPassword) {
+            return res.status(400).json({
+                status: "Fail",
+                message: "New password and confirm password do not match!"
+            });
+        }
 
-//         // Find the admin by email
-//         const admin = await ADMIN.findOne({ email });
-//         if (!admin) {
-//             return res.status(404).json({
-//                 status: "Fail",
-//                 message: "Admin not found!"
-//             });
-//         }
+        // Find the admin by email
+        const admin = await ADMIN.findOne({ email });
+        if (!admin) {
+            return res.status(404).json({
+                status: "Fail",
+                message: "Admin not found!"
+            });
+        }
 
-//         // Hash the new password
-//         admin.password = await bcrypt.hash(newPassword, 10);
-//         await admin.save();
+        // Hash the new password
+        admin.password = await bcrypt.hash(newPassword, 10);
+        await admin.save();
 
-//         res.status(200).json({
-//             status: "Success",
-//             message: "Password has been reset successfully!"
-//         });
-//     } catch (error) {
-//         res.status(500).json({
-//             status: "Fail",
-//             message: error.message
-//         });
-//     }
-// };
+        res.status(200).json({
+            status: "Success",
+            message: "Password has been reset successfully!"
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: "Fail",
+            message: error.message
+        });
+    }
+};
