@@ -10,12 +10,12 @@ router.get('/all', adminController.allAdmin);
 router.delete('/delete/:id', adminController.adminDelete);
 
 // Request OTP for password reset
-// router.post('/requestOtp', adminController.requestOtp);
+router.post('/requestOtp', adminController.requestOtp);
 
-// // Verify OTP and reset password
-// router.post('/verifyOtpAndResetPassword', adminController.verifyOtpAndResetPassword);
+// Verify OTP and reset password
+router.post('/verifyOtpAndResetPassword', adminController.verifyOtpAndResetPassword);
 
-router.post('/resetPasswordWithConfirmation', adminController.resetPasswordWithConfirmation);
+// router.post('/resetPasswordWithConfirmation', adminController.resetPasswordWithConfirmation);
 
 
 
