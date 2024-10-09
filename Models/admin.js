@@ -28,7 +28,7 @@ const adminSchema = new Schema({
         minlength: 8,
     },
 
-    verificationCode: String,
+    // verificationCode: String,
    
 });
 
