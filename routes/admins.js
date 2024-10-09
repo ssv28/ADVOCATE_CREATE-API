@@ -4,10 +4,11 @@ let router = express.Router();
 let adminController = require("../Controller/Admin")
 
 
-
 router.post('/create', adminController.adminCreate);
 router.post('/login', adminController.adminLogin);
 router.get('/all', adminController.allAdmin);
+router.delete('/delete/:id', adminController.adminDelete);
+
 // Request OTP for password reset
 // router.post('/requestOtp', adminController.requestOtp);
 

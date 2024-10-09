@@ -184,6 +184,29 @@ exports.allAdmin = async function (req, res, next) {
 
 }
 
+exports.adminDelete = async function (req, res, next) {
+
+    try {
+
+        let adminDelete = await ADMIN.findByIdAndDelete(req.params.id)
+        // console.log(adminDelete);
+
+        res.status(201).json({
+            status: "Success",
+            message: "Admin Deleted Successfully!",
+            data: adminDelete
+
+        })
+
+    } catch (error) {
+        res.status(404).json({
+            status: "Fail",
+            message: error.message
+        })
+    }
+
+}
+
 
 // // Password Reset with New Password and Confirm Password
 // exports.resetPasswordWithConfirmation = async function (req, res) {
